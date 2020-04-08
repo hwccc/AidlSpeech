@@ -1,0 +1,3 @@
+rootProject.name='AidlSpeechSample'
+include ':app'
+include ':aidlspeech'
