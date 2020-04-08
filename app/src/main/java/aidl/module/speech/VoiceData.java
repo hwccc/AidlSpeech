@@ -8,16 +8,43 @@ import android.os.Parcelable;
  */
 
 public class VoiceData implements Parcelable {
-    public String result;
+
+    /**
+     * 音频数据
+     */
     public byte[] data;
+
+    /**
+     * 是否启动长语音识别
+     */
+    public boolean isLongSpeech;
+
+    /**
+     * 识别时间
+     */
+    public long speechTime;
+
+    /**
+     * 遇到异常是否自动从其
+     */
+    public boolean isErrorRestart;
+
+    /**
+     * 是否返回语义
+     */
+    public boolean isReturnSemantics;
+
 
     public VoiceData() {
 
     }
 
     protected VoiceData(Parcel in) {
-        result = in.readString();
         data = in.createByteArray();
+        isLongSpeech = in.readBoolean();
+        speechTime = in.readLong();
+        isErrorRestart = in.readBoolean();
+        isReturnSemantics = in.readBoolean();
     }
 
     public static final Creator<VoiceData> CREATOR = new Creator<VoiceData>() {
@@ -39,7 +66,10 @@ public class VoiceData implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(result);
         parcel.writeByteArray(data);
+        parcel.writeBoolean(isLongSpeech);
+        parcel.writeLong(speechTime);
+        parcel.writeBoolean(isErrorRestart);
+        parcel.writeBoolean(isReturnSemantics);
     }
 }
