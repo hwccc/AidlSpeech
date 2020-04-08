@@ -20,20 +20,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
-    repositories {
-        flatDir {
-            dirs 'libs'
-        }
-    }
-
-    sourceSets{
-        main{
-            aidl.srcDirs = ['src/main/java']
-        }
-    }
-
-
 }
 
 dependencies {
@@ -41,6 +27,4 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-
-    api 'com.github.hwccc:AndromedaSample:1.0.0'
 }

@@ -1,4 +1,4 @@
-package aidl.module.speech;
+package java.aidl.module.speech;
 
 import android.os.Parcel;
 import android.os.Parcelable;
