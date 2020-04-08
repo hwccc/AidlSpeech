@@ -6,7 +6,7 @@ import org.qiyi.video.svg.IPCCallback;
 
 interface IVoiceRecognize {
     int startReco(in VoiceData result, IPCCallback callback);
-    int setMicData(byte[] micData);
+    int setMicData(in VoiceData result);
     int stopReco();
     int cancelReco();
 }
