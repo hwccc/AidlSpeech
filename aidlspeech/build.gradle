@@ -37,5 +37,5 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api 'com.github.hwccc:AndromedaSample:1.0.0'
+    api 'com.github.hwccc:AndromedaSample:1.0.1'
 }
