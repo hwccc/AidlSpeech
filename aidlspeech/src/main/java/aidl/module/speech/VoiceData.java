@@ -41,10 +41,10 @@ public class VoiceData implements Parcelable {
 
     protected VoiceData(Parcel in) {
         data = in.createByteArray();
-        isLongSpeech = in.readBoolean();
+        isLongSpeech = in.readByte() != 0;
         speechTime = in.readLong();
-        isErrorRestart = in.readBoolean();
-        isReturnSemantics = in.readBoolean();
+        isErrorRestart = in.readByte() != 0;
+        isReturnSemantics = in.readByte() != 0;
     }
 
     public static final Creator<VoiceData> CREATOR = new Creator<VoiceData>() {
@@ -67,9 +67,9 @@ public class VoiceData implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeByteArray(data);
-        parcel.writeBoolean(isLongSpeech);
+        parcel.writeByte((byte) (isLongSpeech ? 1 : 0));
         parcel.writeLong(speechTime);
-        parcel.writeBoolean(isErrorRestart);
-        parcel.writeBoolean(isReturnSemantics);
+        parcel.writeByte((byte) (isErrorRestart ? 1 : 0));
+        parcel.writeByte((byte) (isReturnSemantics ? 1 : 0));
     }
 }
