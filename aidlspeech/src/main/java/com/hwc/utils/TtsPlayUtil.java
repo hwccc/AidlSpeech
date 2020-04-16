@@ -1,11 +1,10 @@
-package com.hwc.tts;
+package com.hwc.utils;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.hwc.tts.listener.OnVoiceTtsListener;
 
@@ -16,11 +15,8 @@ import org.qiyi.video.svg.transfer.RemoteTransfer;
 
 import aidl.module.tts.IVoiceTts;
 import aidl.module.tts.TtsData;
-import aidl.module.tts.TtsType;
 
-public class TtsPlayUtil {
-
-    private static final String TAG = TtsPlayUtil.class.getSimpleName();
+public class TtsPlayUtil  extends BaseProcessUtil{
 
     private Context context;
 
@@ -41,10 +37,6 @@ public class TtsPlayUtil {
 
     }
 
-    public void init(Context context) {
-        this.context = context;
-        Andromeda.init(context);
-    }
 
     /**
      * 开始播放

@@ -1,4 +1,4 @@
-package com.hwc.speech;
+package com.hwc.utils;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -17,11 +17,9 @@ import org.qiyi.video.svg.transfer.RemoteTransfer;
 import aidl.module.speech.IVoiceRecognize;
 import aidl.module.speech.VoiceData;
 
-public class SpeechUtil {
+public class SpeechUtil extends BaseProcessUtil {
 
     private static final String TAG = SpeechUtil.class.getSimpleName();
-
-    private Context context;
 
     private volatile static SpeechUtil instance;
 
@@ -40,10 +38,6 @@ public class SpeechUtil {
 
     }
 
-    public void init(Context context) {
-        this.context = context;
-        Andromeda.init(context);
-    }
 
     /**
      * 启动识别
