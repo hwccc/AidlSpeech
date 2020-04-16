@@ -18,8 +18,6 @@ import aidl.module.tts.TtsData;
 
 public class TtsPlayUtil  extends BaseProcessUtil{
 
-    private Context context;
-
     private volatile static TtsPlayUtil instance;
 
     public static TtsPlayUtil getInstance() {
