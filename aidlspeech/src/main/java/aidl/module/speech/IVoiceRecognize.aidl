@@ -9,4 +9,5 @@ interface IVoiceRecognize {
     int setMicData(in VoiceData result);
     int stopReco();
     int cancelReco();
+    int isStartReco(IPCCallback callback);
 }

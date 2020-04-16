@@ -3,10 +3,6 @@ package aidl.module.speech;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by huang on 17/2/14.
- */
-
 public class VoiceData implements Parcelable {
 
     /**
@@ -25,7 +21,7 @@ public class VoiceData implements Parcelable {
     public long speechTime;
 
     /**
-     * 遇到异常是否自动从其
+     * 遇到异常是否自动重启
      */
     public boolean isErrorRestart;
 
