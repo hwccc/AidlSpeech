@@ -61,7 +61,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     // 本地
 //    api 'com.github.hwccc:AndromeSample:10.0.0'
-    // 云端
+    //  云端
     api 'com.github.hwccc:AndromedaSample:1.0.3'
 
 }
