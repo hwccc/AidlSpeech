@@ -35,6 +35,12 @@ public class TtsData implements Parcelable {
      */
     public boolean isStartMixing;
 
+
+    /**
+     * 是否控制声音
+     */
+    public boolean isControlSound;
+
     public TtsData() {
 
     }
@@ -46,6 +52,7 @@ public class TtsData implements Parcelable {
         retryCount = in.readInt();
         delayTime = in.readLong();
         isStartMixing = in.readByte() != 0;
+        isControlSound = in.readByte() != 0;
     }
 
     public static final Creator<TtsData> CREATOR = new Creator<TtsData>() {
@@ -73,5 +80,6 @@ public class TtsData implements Parcelable {
         parcel.writeInt(retryCount);
         parcel.writeLong(delayTime);
         parcel.writeByte((byte) (isStartMixing ? 1 : 0));
+        parcel.writeByte((byte) (isControlSound ? 1 : 0));
     }
 }

@@ -30,6 +30,11 @@ public class VoiceData implements Parcelable {
      */
     public boolean isReturnSemantics;
 
+    /**
+     * 是否控制声音
+     */
+    public boolean isControlSound;
+
 
     public VoiceData() {
 
@@ -41,6 +46,7 @@ public class VoiceData implements Parcelable {
         speechTime = in.readLong();
         isErrorRestart = in.readByte() != 0;
         isReturnSemantics = in.readByte() != 0;
+        isControlSound = in.readByte() != 0;
     }
 
     public static final Creator<VoiceData> CREATOR = new Creator<VoiceData>() {
@@ -67,5 +73,6 @@ public class VoiceData implements Parcelable {
         parcel.writeLong(speechTime);
         parcel.writeByte((byte) (isErrorRestart ? 1 : 0));
         parcel.writeByte((byte) (isReturnSemantics ? 1 : 0));
+        parcel.writeByte((byte) (isControlSound ? 1 : 0));
     }
 }

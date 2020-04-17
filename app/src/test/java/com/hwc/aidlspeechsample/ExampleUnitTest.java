@@ -1,4 +1,4 @@
-package com.hwc.aidlspeechsample;
+package com.hwc.aidlspeech;
 
 import org.junit.Test;
 

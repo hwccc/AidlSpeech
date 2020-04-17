@@ -1,4 +1,4 @@
-package com.hwc.aidlspeechsample;
+package com.hwc.aidlspeech;
 
 import android.os.Bundle;
 

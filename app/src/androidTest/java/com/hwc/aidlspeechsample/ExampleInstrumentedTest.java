@@ -1,4 +1,4 @@
-package com.hwc.aidlspeechsample;
+package com.hwc.aidlspeech;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.hwc.aidlspeechsample", appContext.getPackageName());
+        assertEquals("com.hwc.aidlspeech", appContext.getPackageName());
     }
 }
