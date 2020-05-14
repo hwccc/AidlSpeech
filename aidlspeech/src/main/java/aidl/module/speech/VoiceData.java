@@ -35,7 +35,6 @@ public class VoiceData implements Parcelable {
      */
     public boolean isControlSound;
 
-
     public VoiceData() {
 
     }
