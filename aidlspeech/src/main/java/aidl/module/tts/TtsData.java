@@ -11,9 +11,9 @@ public class TtsData implements Parcelable {
     public String text;
 
     /**
-     * 播报的文本
+     * 播报声道类型
      */
-    public int ttsType;
+    public int ttsSoundtrackType;
 
     /**
      * 是否播报失败进行重新播放
@@ -47,7 +47,7 @@ public class TtsData implements Parcelable {
 
     protected TtsData(Parcel in) {
         text = in.readString();
-        ttsType = in.readInt();
+        ttsSoundtrackType = in.readInt();
         isRetry = in.readByte() != 0;
         retryCount = in.readInt();
         delayTime = in.readLong();
@@ -75,7 +75,7 @@ public class TtsData implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(text);
-        parcel.writeInt(ttsType);
+        parcel.writeInt(ttsSoundtrackType);
         parcel.writeByte((byte) (isRetry ? 1 : 0));
         parcel.writeInt(retryCount);
         parcel.writeLong(delayTime);
