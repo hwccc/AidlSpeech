@@ -1,6 +1,6 @@
 package com.hwc.speech.callback;
 
-import androidx.annotation.IntDef;
+import android.support.annotation.IntDef;
 
 /**
  * @author hwc

@@ -101,7 +101,7 @@ public class VoiceExtraBean implements Serializable {
     /**
      * 语音确认指令
      */
-    public final static int VOICE_CONFIRM_TYPE = 25;
+    public final static int VOICE_CONFIRM_TYPE = 9;
 
     public int getType() {
         return type;

@@ -1,4 +1,4 @@
-package com.hwc.aidlspeech;
+package com.hwc.speech;
 
 import android.content.Context;
 

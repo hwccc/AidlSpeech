@@ -1,6 +1,6 @@
 package com.hwc.tts.callback;
 
-import androidx.annotation.StringDef;
+import android.support.annotation.StringDef;
 
 /**
  * @author hwc
