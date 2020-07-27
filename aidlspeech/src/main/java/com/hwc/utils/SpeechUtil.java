@@ -1,6 +1,5 @@
 package com.hwc.utils;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
@@ -16,6 +15,7 @@ import org.qiyi.video.svg.transfer.RemoteTransfer;
 
 import aidl.module.speech.IVoiceRecognize;
 import aidl.module.speech.VoiceData;
+import aidl.module.speech.WordSlotData;
 
 public class SpeechUtil extends BaseProcessUtil {
 
@@ -50,7 +50,7 @@ public class SpeechUtil extends BaseProcessUtil {
             Log.d(TAG, "SpeechUtil Not init Context Is Null");
             return false;
         }
-        RemoteTransfer.getInstance().setCurrentAuthority(DispatcherConstants.AUTHORITY_SPEECH);
+        RemoteTransfer.getInstance().setCurrentAuthority(DispatcherConstants.AUTHORITY_VOICE);
         IBinder iVoiceRecognize = Andromeda.with(context).getRemoteService(IVoiceRecognize.class);
         if (null == iVoiceRecognize) {
             Log.d(TAG, "iVoiceRecognize is Null");
@@ -92,7 +92,7 @@ public class SpeechUtil extends BaseProcessUtil {
             Log.d(TAG, "SpeechUtil Not init Context Is Null");
             return false;
         }
-        RemoteTransfer.getInstance().setCurrentAuthority(DispatcherConstants.AUTHORITY_SPEECH);
+        RemoteTransfer.getInstance().setCurrentAuthority(DispatcherConstants.AUTHORITY_VOICE);
         IBinder iVoiceRecognize = Andromeda.with(context).getRemoteService(IVoiceRecognize.class);
         if (null == iVoiceRecognize) {
             Log.d(TAG, "iVoiceRecognize is Null");
@@ -110,4 +110,30 @@ public class SpeechUtil extends BaseProcessUtil {
         return false;
     }
 
+    /**
+     * 更新词槽
+     * @param wordSlotData
+     */
+    public boolean updateWordSlot(WordSlotData wordSlotData){
+        if (null == context) {
+            Log.d(TAG, "SpeechUtil Not init Context Is Null");
+            return false;
+        }
+        RemoteTransfer.getInstance().setCurrentAuthority(DispatcherConstants.AUTHORITY_VOICE);
+        IBinder iVoiceRecognize = Andromeda.with(context).getRemoteService(IVoiceRecognize.class);
+        if (null == iVoiceRecognize) {
+            Log.d(TAG, "iVoiceRecognize is Null");
+            return false;
+        }
+        IVoiceRecognize buyApple = IVoiceRecognize.Stub.asInterface(iVoiceRecognize);
+        if (null != buyApple) {
+            try {
+                buyApple.updateWordSlot(wordSlotData);
+                return true;
+            } catch (RemoteException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return false;
+    }
 }

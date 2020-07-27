@@ -29,7 +29,7 @@ public class BaseProcessUtil {
      * @param <T>
      */
     public <T extends IBinder> void registerSpeechRemoteService(Class serviceClass, T stubBinder) {
-        registerRemoteService(DispatcherConstants.AUTHORITY_SPEECH, serviceClass, stubBinder);
+        registerRemoteService(DispatcherConstants.AUTHORITY_VOICE, serviceClass, stubBinder);
     }
 
     /**

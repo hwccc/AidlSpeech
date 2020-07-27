@@ -47,7 +47,7 @@ public class TtsPlayUtil  extends BaseProcessUtil{
             Log.d(TAG, "TtsPlayUtil Not init Context Is Null");
             return false;
         }
-        RemoteTransfer.getInstance().setCurrentAuthority(DispatcherConstants.AUTHORITY_SPEECH);
+        RemoteTransfer.getInstance().setCurrentAuthority(DispatcherConstants.AUTHORITY_VOICE);
         IBinder iVoiceTts = Andromeda.with(context).getRemoteService(IVoiceTts.class);
         if (null == iVoiceTts) {
             Log.d(TAG, "iVoiceTts is Null");
@@ -93,7 +93,7 @@ public class TtsPlayUtil  extends BaseProcessUtil{
             Log.d(TAG, "TtsPlayUtil Not init Context Is Null");
             return false;
         }
-        RemoteTransfer.getInstance().setCurrentAuthority(DispatcherConstants.AUTHORITY_SPEECH);
+        RemoteTransfer.getInstance().setCurrentAuthority(DispatcherConstants.AUTHORITY_VOICE);
         IBinder iVoiceTts = Andromeda.with(context).getRemoteService(IVoiceTts.class);
         if (null == iVoiceTts) {
             Log.d(TAG, "iVoiceTts is Null");
