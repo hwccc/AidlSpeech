@@ -36,6 +36,11 @@ public class VoiceData implements Parcelable {
     public boolean isControlSound;
 
     /**
+     * 是否播放提示音
+     */
+    public boolean isPlayHintSound;
+
+    /**
      * 音频文件路径
      * 默认为null,不保存音频操作
      */
@@ -62,6 +67,7 @@ public class VoiceData implements Parcelable {
         isErrorRestart = in.readByte() != 0;
         isReturnSemantics = in.readByte() != 0;
         isControlSound = in.readByte() != 0;
+        isPlayHintSound = in.readByte() != 0;
         voiceFilePath = in.readString();
         vadBos = in.readString();
         vadEos = in.readString();
@@ -92,6 +98,7 @@ public class VoiceData implements Parcelable {
         parcel.writeByte((byte) (isErrorRestart ? 1 : 0));
         parcel.writeByte((byte) (isReturnSemantics ? 1 : 0));
         parcel.writeByte((byte) (isControlSound ? 1 : 0));
+        parcel.writeByte((byte) (isPlayHintSound ? 1 : 0));
         parcel.writeString(voiceFilePath);
         parcel.writeString(vadBos);
         parcel.writeString(vadEos);
