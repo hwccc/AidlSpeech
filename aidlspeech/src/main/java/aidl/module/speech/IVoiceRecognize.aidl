@@ -9,7 +9,6 @@ interface IVoiceRecognize {
     int startReco(in VoiceData result, IPCCallback callback);
     int setMicData(in VoiceData result);
     int stopReco();
-    int cancelReco();
     boolean isStartVoiceSpeech();
     boolean isStartRecognition();
     int updateWordSlot(in WordSlotData wordSlotData);

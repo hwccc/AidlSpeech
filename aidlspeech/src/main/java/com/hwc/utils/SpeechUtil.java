@@ -41,6 +41,7 @@ public class SpeechUtil extends BaseProcessUtil {
 
     /**
      * 启动识别
+     *
      * @param voiceData
      * @param onRecognitionListener
      * @return
@@ -85,6 +86,7 @@ public class SpeechUtil extends BaseProcessUtil {
 
     /**
      * 停止识别
+     *
      * @return
      */
     public boolean stop() {
@@ -112,9 +114,10 @@ public class SpeechUtil extends BaseProcessUtil {
 
     /**
      * 更新词槽
+     *
      * @param wordSlotData
      */
-    public boolean updateWordSlot(WordSlotData wordSlotData){
+    public boolean updateWordSlot(WordSlotData wordSlotData) {
         if (null == context) {
             Log.d(TAG, "SpeechUtil Not init Context Is Null");
             return false;
@@ -136,4 +139,58 @@ public class SpeechUtil extends BaseProcessUtil {
         }
         return false;
     }
+
+
+    /**
+     * 是否在进行小喵识别
+     */
+    public boolean isStartVoiceSpeech() {
+        if (null == context) {
+            Log.d(TAG, "SpeechUtil Not init Context Is Null");
+            return false;
+        }
+        RemoteTransfer.getInstance().setCurrentAuthority(DispatcherConstants.AUTHORITY_VOICE);
+        IBinder iVoiceRecognize = Andromeda.with(context).getRemoteService(IVoiceRecognize.class);
+        if (null == iVoiceRecognize) {
+            Log.d(TAG, "iVoiceRecognize is Null");
+            return false;
+        }
+        IVoiceRecognize buyApple = IVoiceRecognize.Stub.asInterface(iVoiceRecognize);
+        if (null != buyApple) {
+            try {
+                return buyApple.isStartVoiceSpeech();
+            } catch (RemoteException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * 是否在进行录音识别
+     */
+    public boolean isStartRecognition() {
+        if (null == context) {
+            Log.d(TAG, "SpeechUtil Not init Context Is Null");
+            return false;
+        }
+        RemoteTransfer.getInstance().setCurrentAuthority(DispatcherConstants.AUTHORITY_VOICE);
+        IBinder iVoiceRecognize = Andromeda.with(context).getRemoteService(IVoiceRecognize.class);
+        if (null == iVoiceRecognize) {
+            Log.d(TAG, "iVoiceRecognize is Null");
+            return false;
+        }
+        IVoiceRecognize buyApple = IVoiceRecognize.Stub.asInterface(iVoiceRecognize);
+        if (null != buyApple) {
+            try {
+                return buyApple.isStartRecognition();
+            } catch (RemoteException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+
 }
