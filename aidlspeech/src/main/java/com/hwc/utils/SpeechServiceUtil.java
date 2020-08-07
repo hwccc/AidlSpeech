@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
-public class SpeechServiceUtil extends BaseProcessUtil {
+public class SpeechServiceUtil {
 
     private static final String TAG = SpeechServiceUtil.class.getSimpleName();
 
