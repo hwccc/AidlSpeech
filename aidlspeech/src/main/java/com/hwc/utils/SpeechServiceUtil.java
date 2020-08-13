@@ -3,6 +3,7 @@ package com.hwc.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.text.TextUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -49,15 +50,28 @@ public class SpeechServiceUtil {
      *
      * @return
      */
+    public void start(Context context) {
+        start(context, null);
+    }
+
+    /**
+     * 启动识别
+     *
+     * @return
+     */
     public void start(Context context, String result) {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_INSERT);
-        try {
-            result = URLEncoder.encode(result, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        String s = "miudrive_voice://service?action=start";
+        if (!TextUtils.isEmpty(result)) {
+            try {
+                result = URLEncoder.encode(result, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            s.concat("&result=").concat(result);
         }
-        intent.setData(Uri.parse("miudrive_voice://service?action=start".concat("&result=").concat(result)));
+        intent.setData(Uri.parse(s));
         intent.setPackage(VOICE_PACKAGE_NAME);
         context.startService(intent);
     }
@@ -83,12 +97,16 @@ public class SpeechServiceUtil {
     public void startSelectScene(Context context, String result) {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_INSERT);
-        try {
-            result = URLEncoder.encode(result, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        String s = "miudrive_voice://service?action=startSelectScene";
+        if (!TextUtils.isEmpty(result)) {
+            try {
+                result = URLEncoder.encode(result, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            s.concat("&result=").concat(result);
         }
-        intent.setData(Uri.parse("miudrive_voice://service?action=startSelectScene".concat("&result=").concat(result)));
+        intent.setData(Uri.parse(s));
         intent.setPackage(VOICE_PACKAGE_NAME);
         context.startService(intent);
     }
