@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 public class SpeechServiceUtil {
 
     private static final String TAG = SpeechServiceUtil.class.getSimpleName();
@@ -46,10 +49,15 @@ public class SpeechServiceUtil {
      *
      * @return
      */
-    public void start(Context context) {
+    public void start(Context context, String result) {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_INSERT);
-        intent.setData(Uri.parse("miudrive_voice://service?action=start"));
+        try {
+            result = URLEncoder.encode(result, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        intent.setData(Uri.parse("miudrive_voice://service?action=start".concat("&result=").concat(result)));
         intent.setPackage(VOICE_PACKAGE_NAME);
         context.startService(intent);
     }
@@ -72,10 +80,15 @@ public class SpeechServiceUtil {
      *
      * @return
      */
-    public void startSelectScene(Context context) {
+    public void startSelectScene(Context context, String result) {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_INSERT);
-        intent.setData(Uri.parse("miudrive_voice://service?action=startSelectScene"));
+        try {
+            result = URLEncoder.encode(result, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        intent.setData(Uri.parse("miudrive_voice://service?action=startSelectScene".concat("&result=").concat(result)));
         intent.setPackage(VOICE_PACKAGE_NAME);
         context.startService(intent);
     }
