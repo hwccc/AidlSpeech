@@ -90,28 +90,6 @@ public class SpeechServiceUtil {
     }
 
     /**
-     * 启动选择识别
-     *
-     * @return
-     */
-    public void startSelectScene(Context context, String result) {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_INSERT);
-        String s = "miudrive_voice://service?action=startSelectScene";
-        if (!TextUtils.isEmpty(result)) {
-            try {
-                result = URLEncoder.encode(result, "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-            s.concat("&result=").concat(result);
-        }
-        intent.setData(Uri.parse(s));
-        intent.setPackage(VOICE_PACKAGE_NAME);
-        context.startService(intent);
-    }
-
-    /**
      * 显示语音使用帮助弹窗
      *
      * @return
