@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.didi365.speech.manager.bean.VoiceExtraBean;
 import com.hwc.speech.listener.OnRecognitionListener;
+import com.hwc.speech.listener.OnSelectSceneListener;
 
 import org.qiyi.video.svg.Andromeda;
 import org.qiyi.video.svg.callback.BaseCallback;
@@ -67,13 +68,13 @@ public class SpeechUtil extends BaseProcessUtil {
                             int speechCallBackState = result.getInt("speechCallBackState");
                             VoiceExtraBean voiceExtraBean = (VoiceExtraBean) result.getSerializable("voiceExtraBean");
                             onRecognitionListener.onRecognitionState(speechCallBackState, voiceExtraBean);
-                            org.qiyi.video.svg.log.Logger.d("got remote service with callback in other process(:banana),resultStr:" + voiceExtraBean.toString());
+                            org.qiyi.video.svg.log.Logger.d("voiceExtraBean: " + voiceExtraBean.toString());
                         }
                     }
 
                     @Override
                     public void onFailed(String reason) {
-                        org.qiyi.video.svg.log.Logger.e("buyAppleOnNet failed,reason:" + reason);
+                        org.qiyi.video.svg.log.Logger.e("failed: " + reason);
                     }
                 });
                 return true;
@@ -192,5 +193,79 @@ public class SpeechUtil extends BaseProcessUtil {
         return false;
     }
 
+
+    /**
+     * 启动识别
+     *
+     * @param result
+     * @param onSelectSceneListener
+     * @return
+     */
+    public boolean startSelectScene(String result, final OnSelectSceneListener onSelectSceneListener) {
+        if (null == context) {
+            Log.d(TAG, "SpeechUtil Not init Context Is Null");
+            return false;
+        }
+        RemoteTransfer.getInstance().setCurrentAuthority(DispatcherConstants.AUTHORITY_VOICE);
+        IBinder iVoiceRecognize = Andromeda.with(context).getRemoteService(IVoiceRecognize.class);
+        if (null == iVoiceRecognize) {
+            Log.d(TAG, "iVoiceRecognize is Null");
+            return false;
+        }
+        IVoiceRecognize buyApple = IVoiceRecognize.Stub.asInterface(iVoiceRecognize);
+        if (null != buyApple) {
+            try {
+                buyApple.startSelectScene(result, new BaseCallback() {
+                    @Override
+                    public void onSucceed(Bundle result) {
+                        if (onSelectSceneListener != null) {
+                            String state = result.getString("state");
+                            int position = result.getInt("position", -1);
+                            onSelectSceneListener.onStateCall(state, position);
+                            org.qiyi.video.svg.log.Logger.d("state：" + state + " position: " + position);
+                        }
+                    }
+
+                    @Override
+                    public void onFailed(String reason) {
+                        org.qiyi.video.svg.log.Logger.e("buyAppleOnNet failed,reason:" + reason);
+                    }
+                });
+                return true;
+            } catch (RemoteException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * 停止识别
+     *
+     * @return
+     */
+    public boolean stopScene() {
+        if (null == context) {
+            Log.d(TAG, "SpeechUtil Not init Context Is Null");
+            return false;
+        }
+        RemoteTransfer.getInstance().setCurrentAuthority(DispatcherConstants.AUTHORITY_VOICE);
+        IBinder iVoiceRecognize = Andromeda.with(context).getRemoteService(IVoiceRecognize.class);
+        if (null == iVoiceRecognize) {
+            Log.d(TAG, "iVoiceRecognize is Null");
+            return false;
+        }
+        IVoiceRecognize buyApple = IVoiceRecognize.Stub.asInterface(iVoiceRecognize);
+        if (null != buyApple) {
+            try {
+                buyApple.stopScene();
+                return true;
+            } catch (RemoteException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return false;
+    }
 
 }
