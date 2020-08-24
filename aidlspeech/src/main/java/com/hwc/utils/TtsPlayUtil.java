@@ -1,6 +1,7 @@
 package com.hwc.utils;
 
 import android.content.Context;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
@@ -60,13 +61,12 @@ public class TtsPlayUtil extends BaseProcessUtil {
                 buyApple.play(ttsData, new BaseCallback() {
                     @Override
                     public void onSucceed(Bundle bundle) {
-                        String resultState = bundle.getString("ResultState", "");
-                        String resultStateMsg = bundle.getString("ResultStateMsg", "");
+                        String ttsCallBackState = bundle.getString("ttsCallBackState", "");
                         String result = bundle.getString("result", "");
                         if (onVoiceTtsListener != null) {
-                            onVoiceTtsListener.onSpeakState(resultState, resultStateMsg, result);
+                            onVoiceTtsListener.onSpeakState(ttsCallBackState, result);
                         }
-                        org.qiyi.video.svg.log.Logger.d("resultState:" + resultState + " resultStateMsg:" + resultStateMsg + " result:" + result);
+                        org.qiyi.video.svg.log.Logger.d("ttsCallBackState:" + ttsCallBackState + " result:" + result);
                     }
 
                     @Override
@@ -110,5 +110,24 @@ public class TtsPlayUtil extends BaseProcessUtil {
         }
         return false;
     }
+
+    /**
+     * 停止Music声道TTs播放
+     *
+     * @return
+     */
+    public boolean stopMusicSoundTts() {
+        return stop(AudioManager.STREAM_MUSIC);
+    }
+
+    /**
+     * 停止System声道TTs播放
+     *
+     * @return
+     */
+    public boolean stopSystemSoundTts() {
+        return stop(AudioManager.STREAM_SYSTEM);
+    }
+
 
 }

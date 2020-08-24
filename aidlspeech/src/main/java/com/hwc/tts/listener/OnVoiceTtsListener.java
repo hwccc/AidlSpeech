@@ -12,6 +12,6 @@ public interface OnVoiceTtsListener {
      *
      * @param ttsCallBackState
      */
-    void onSpeakState(@TtsCallBackState.TtsState String ttsCallBackState, String stateMsg, String result);
+    void onSpeakState(@TtsCallBackState.TtsState String ttsCallBackState, String result);
 
 }
