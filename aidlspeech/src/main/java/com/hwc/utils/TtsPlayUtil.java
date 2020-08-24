@@ -16,7 +16,7 @@ import org.qiyi.video.svg.transfer.RemoteTransfer;
 import aidl.module.tts.IVoiceTts;
 import aidl.module.tts.TtsData;
 
-public class TtsPlayUtil  extends BaseProcessUtil{
+public class TtsPlayUtil extends BaseProcessUtil {
 
     private volatile static TtsPlayUtil instance;
 
@@ -38,6 +38,7 @@ public class TtsPlayUtil  extends BaseProcessUtil{
 
     /**
      * 开始播放
+     *
      * @param ttsData
      * @param onVoiceTtsListener
      * @return
@@ -56,18 +57,16 @@ public class TtsPlayUtil  extends BaseProcessUtil{
         IVoiceTts buyApple = IVoiceTts.Stub.asInterface(iVoiceTts);
         if (null != buyApple) {
             try {
-//                TtsData ttsData = new TtsData();
-//                ttsData.ttsType = TtsType.VOICE_XF_SPEECH;
-//                ttsData.text = "今天天气怎么样？";
                 buyApple.play(ttsData, new BaseCallback() {
                     @Override
-                    public void onSucceed(Bundle result) {
-                        String resultState = result.getString("ResultState", "");
-                        String resultStateMsg = result.getString("ResultStateMsg", "");
+                    public void onSucceed(Bundle bundle) {
+                        String resultState = bundle.getString("ResultState", "");
+                        String resultStateMsg = bundle.getString("ResultStateMsg", "");
+                        String result = bundle.getString("result", "");
                         if (onVoiceTtsListener != null) {
-                            onVoiceTtsListener.onSpeakState(resultState, resultStateMsg);
+                            onVoiceTtsListener.onSpeakState(resultState, resultStateMsg, result);
                         }
-                        org.qiyi.video.svg.log.Logger.d("got remote service with callback in other process(:banana),resultState:" + resultState + " resultStateMsg:" + resultStateMsg);
+                        org.qiyi.video.svg.log.Logger.d("resultState:" + resultState + " resultStateMsg:" + resultStateMsg + " result:" + result);
                     }
 
                     @Override
@@ -85,6 +84,7 @@ public class TtsPlayUtil  extends BaseProcessUtil{
 
     /**
      * 停止播放
+     *
      * @param type
      * @return
      */
