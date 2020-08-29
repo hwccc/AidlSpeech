@@ -19,6 +19,8 @@ import aidl.module.tts.TtsData;
 
 public class TtsPlayUtil extends BaseProcessUtil {
 
+    private OnVoiceTtsListener voiceTtsListener;
+
     private volatile static TtsPlayUtil instance;
 
     public static TtsPlayUtil getInstance() {
@@ -58,13 +60,14 @@ public class TtsPlayUtil extends BaseProcessUtil {
         IVoiceTts buyApple = IVoiceTts.Stub.asInterface(iVoiceTts);
         if (null != buyApple) {
             try {
+                voiceTtsListener = onVoiceTtsListener;
                 buyApple.play(ttsData, new BaseCallback() {
                     @Override
                     public void onSucceed(Bundle bundle) {
                         String ttsCallBackState = bundle.getString("ttsCallBackState", "");
                         String result = bundle.getString("result", "");
-                        if (onVoiceTtsListener != null) {
-                            onVoiceTtsListener.onSpeakState(ttsCallBackState, result);
+                        if (voiceTtsListener != null) {
+                            voiceTtsListener.onSpeakState(ttsCallBackState, result);
                         }
                         org.qiyi.video.svg.log.Logger.d("ttsCallBackState:" + ttsCallBackState + " result:" + result);
                     }
@@ -89,6 +92,7 @@ public class TtsPlayUtil extends BaseProcessUtil {
      * @return
      */
     public boolean stop(int type) {
+        releaseListener();
         if (null == context) {
             Log.d(TAG, "TtsPlayUtil Not init Context Is Null");
             return false;
@@ -109,6 +113,13 @@ public class TtsPlayUtil extends BaseProcessUtil {
             }
         }
         return false;
+    }
+
+    /**
+     * 释放设置的监听器
+     */
+    public void releaseListener() {
+        voiceTtsListener = null;
     }
 
     /**

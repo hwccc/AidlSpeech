@@ -22,6 +22,8 @@ public class SpeechUtil extends BaseProcessUtil {
 
     private static final String TAG = SpeechUtil.class.getSimpleName();
 
+    private OnRecognitionListener recognitionListener;
+
     private volatile static SpeechUtil instance;
 
     public static SpeechUtil getInstance() {
@@ -61,13 +63,14 @@ public class SpeechUtil extends BaseProcessUtil {
         IVoiceRecognize buyApple = IVoiceRecognize.Stub.asInterface(iVoiceRecognize);
         if (null != buyApple) {
             try {
+                this.recognitionListener = onRecognitionListener;
                 buyApple.startReco(voiceData, new BaseCallback() {
                     @Override
                     public void onSucceed(Bundle result) {
-                        if (onRecognitionListener != null) {
+                        if (recognitionListener != null) {
                             int speechCallBackState = result.getInt("speechCallBackState");
                             VoiceExtraBean voiceExtraBean = (VoiceExtraBean) result.getSerializable("voiceExtraBean");
-                            onRecognitionListener.onRecognitionState(speechCallBackState, voiceExtraBean);
+                            recognitionListener.onRecognitionState(speechCallBackState, voiceExtraBean);
                             org.qiyi.video.svg.log.Logger.d("voiceExtraBean: " + voiceExtraBean.toString());
                         }
                     }
@@ -85,12 +88,14 @@ public class SpeechUtil extends BaseProcessUtil {
         return false;
     }
 
+
     /**
      * 停止识别
      *
      * @return
      */
     public boolean stop() {
+        releaseListener();
         if (null == context) {
             Log.d(TAG, "SpeechUtil Not init Context Is Null");
             return false;
@@ -111,6 +116,13 @@ public class SpeechUtil extends BaseProcessUtil {
             }
         }
         return false;
+    }
+
+    /**
+     * 释放设置的监听器
+     */
+    public void releaseListener(){
+        recognitionListener = null;
     }
 
     /**
