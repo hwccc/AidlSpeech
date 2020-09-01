@@ -55,6 +55,11 @@ public class VoiceExtraBean implements Serializable {
      */
     private String speechAction;
 
+    /**
+     * 语义返回数据
+     */
+    private String semanticResult;
+
 
     public final static int TYPE_VOICE_VOLUME = 1;
 
@@ -74,34 +79,18 @@ public class VoiceExtraBean implements Serializable {
     public final static int TYPE_VOICE_MIC_OPEN_STATE = 4;
 
     /**
-     * 微信录音打开、关闭状态
+     * 语音确认指令
      */
-    public final static int TYPE_VOICE_WECHAT_MIC_OPEN_STATE = 5;
+    public final static int TYPE_VOICE_CONFIRM = 5;
 
     /**
-     * 微信语音返回的数据
+     * 语音识别异常回调
      */
-    public final static int TYPE_VOICE_WECHAT_REPLY_TEXT = 6;
+    public final static int TYPE_VOICE_SPEECH_ERROR = 6;
+
     private String wechatText;
     private String wechatUrl;
     private String wechatReply;
-
-    /**
-     * 微信特定动作手机发送到车机
-     */
-    public final static int TYPE_VOICE_WECHAT_GIVEN_ACTION = 7;
-
-
-    /**
-     * 语音唤醒指令
-     */
-    public final static int TYPE_VOICE_WAKE = 8;
-
-
-    /**
-     * 语音确认指令
-     */
-    public final static int VOICE_CONFIRM_TYPE = 9;
 
     public int getType() {
         return type;
@@ -199,6 +188,14 @@ public class VoiceExtraBean implements Serializable {
         this.wechatReply = wechatReply;
     }
 
+    public String getSemanticResult() {
+        return semanticResult;
+    }
+
+    public void setSemanticResult(String semanticResult) {
+        this.semanticResult = semanticResult;
+    }
+
     public VoiceExtraBean(Builder builder) {
         this.type = builder.type;
         this.volume = builder.volume;
@@ -212,6 +209,7 @@ public class VoiceExtraBean implements Serializable {
         this.wechatText = builder.wechatText;
         this.wechatUrl = builder.wechatUrl;
         this.wechatReply = builder.wechatReply;
+        this.semanticResult = builder.semanticResult;
     }
 
     @Override
@@ -226,6 +224,7 @@ public class VoiceExtraBean implements Serializable {
                 ", semantics='" + semantics + '\'' +
                 ", islast=" + islast +
                 ", speechAction='" + speechAction + '\'' +
+                ", semanticResult='" + semanticResult + '\'' +
                 ", wechatText='" + wechatText + '\'' +
                 ", wechatUrl='" + wechatUrl + '\'' +
                 ", wechatReply='" + wechatReply + '\'' +
@@ -245,6 +244,7 @@ public class VoiceExtraBean implements Serializable {
         private String wechatText;
         private String wechatUrl;
         private String wechatReply;
+        private String semanticResult;
 
         public Builder type(int type) {
             this.type = type;
@@ -307,26 +307,13 @@ public class VoiceExtraBean implements Serializable {
             return this;
         }
 
-        public VoiceExtraBean build() {
-            return new VoiceExtraBean(this);
+        public Builder semanticResult(String semanticResult) {
+            this.semanticResult = semanticResult;
+            return this;
         }
 
-        @Override
-        public String toString() {
-            return "Builder{" +
-                    "type=" + type +
-                    ", volume='" + volume + '\'' +
-                    ", result='" + result + '\'' +
-                    ", resultId='" + resultId + '\'' +
-                    ", errorCode='" + errorCode + '\'' +
-                    ", errorMsg='" + errorMsg + '\'' +
-                    ", semantics='" + semantics + '\'' +
-                    ", islast=" + islast +
-                    ", speechAction='" + speechAction + '\'' +
-                    ", wechatText='" + wechatText + '\'' +
-                    ", wechatUrl='" + wechatUrl + '\'' +
-                    ", wechatReply='" + wechatReply + '\'' +
-                    '}';
+        public VoiceExtraBean build() {
+            return new VoiceExtraBean(this);
         }
     }
 }

@@ -28,7 +28,7 @@ public class VoiceData implements Parcelable {
     /**
      * 是否返回语义
      */
-    public boolean isReturnSemantics;
+    public boolean isReturnSemanticsJson;
 
     /**
      * 是否控制声音
@@ -56,6 +56,11 @@ public class VoiceData implements Parcelable {
      */
     public String vadEos;
 
+    /**
+     * 语音场景（用于导航、电台、打电话、微信联系人搜索）
+     */
+    public int scene;
+
     public VoiceData() {
 
     }
@@ -65,12 +70,13 @@ public class VoiceData implements Parcelable {
         isLongSpeech = in.readByte() != 0;
         speechTime = in.readLong();
         isErrorRestart = in.readByte() != 0;
-        isReturnSemantics = in.readByte() != 0;
+        isReturnSemanticsJson = in.readByte() != 0;
         isControlSound = in.readByte() != 0;
         isPlayHintSound = in.readByte() != 0;
         voiceFilePath = in.readString();
         vadBos = in.readString();
         vadEos = in.readString();
+        scene = in.readInt();
     }
 
     public static final Creator<VoiceData> CREATOR = new Creator<VoiceData>() {
@@ -96,11 +102,12 @@ public class VoiceData implements Parcelable {
         parcel.writeByte((byte) (isLongSpeech ? 1 : 0));
         parcel.writeLong(speechTime);
         parcel.writeByte((byte) (isErrorRestart ? 1 : 0));
-        parcel.writeByte((byte) (isReturnSemantics ? 1 : 0));
+        parcel.writeByte((byte) (isReturnSemanticsJson ? 1 : 0));
         parcel.writeByte((byte) (isControlSound ? 1 : 0));
         parcel.writeByte((byte) (isPlayHintSound ? 1 : 0));
         parcel.writeString(voiceFilePath);
         parcel.writeString(vadBos);
         parcel.writeString(vadEos);
+        parcel.writeInt(scene);
     }
 }
