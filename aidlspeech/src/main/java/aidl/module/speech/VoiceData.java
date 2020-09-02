@@ -26,7 +26,12 @@ public class VoiceData implements Parcelable {
     public boolean isErrorRestart;
 
     /**
-     * 是否返回语义
+     * 是否请求语义,默认请求
+     */
+    public boolean isRequestSemantics = true;
+
+    /**
+     * 是否返回语义数据
      */
     public boolean isReturnSemanticsJson;
 
@@ -71,6 +76,7 @@ public class VoiceData implements Parcelable {
         speechTime = in.readLong();
         isErrorRestart = in.readByte() != 0;
         isReturnSemanticsJson = in.readByte() != 0;
+        isRequestSemantics = in.readByte() != 0;
         isControlSound = in.readByte() != 0;
         isPlayHintSound = in.readByte() != 0;
         voiceFilePath = in.readString();
@@ -103,6 +109,7 @@ public class VoiceData implements Parcelable {
         parcel.writeLong(speechTime);
         parcel.writeByte((byte) (isErrorRestart ? 1 : 0));
         parcel.writeByte((byte) (isReturnSemanticsJson ? 1 : 0));
+        parcel.writeByte((byte) (isRequestSemantics ? 1 : 0));
         parcel.writeByte((byte) (isControlSound ? 1 : 0));
         parcel.writeByte((byte) (isPlayHintSound ? 1 : 0));
         parcel.writeString(voiceFilePath);
