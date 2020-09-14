@@ -69,7 +69,7 @@ public class SpeechServiceUtil {
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-            s.concat("&result=").concat(result);
+            s = s.concat("&result=").concat(result);
         }
         intent.setData(Uri.parse(s));
         intent.setPackage(VOICE_PACKAGE_NAME);
