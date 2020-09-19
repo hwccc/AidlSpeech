@@ -121,7 +121,7 @@ public class SpeechUtil extends BaseProcessUtil {
     /**
      * 释放设置的监听器
      */
-    public void releaseListener(){
+    public void releaseListener() {
         recognitionListener = null;
     }
 
@@ -209,11 +209,11 @@ public class SpeechUtil extends BaseProcessUtil {
     /**
      * 启动识别
      *
-     * @param result
+     * @param voiceData
      * @param onSelectSceneListener
      * @return
      */
-    public boolean startSelectScene(String result, final OnSelectSceneListener onSelectSceneListener) {
+    public boolean startSelectScene(VoiceData voiceData, final OnSelectSceneListener onSelectSceneListener) {
         if (null == context) {
             Log.d(TAG, "SpeechUtil Not init Context Is Null");
             return false;
@@ -227,14 +227,16 @@ public class SpeechUtil extends BaseProcessUtil {
         IVoiceRecognize buyApple = IVoiceRecognize.Stub.asInterface(iVoiceRecognize);
         if (null != buyApple) {
             try {
-                buyApple.startSelectScene(result, new BaseCallback() {
+                buyApple.startSelectScene(voiceData, new BaseCallback() {
                     @Override
-                    public void onSucceed(Bundle result) {
+                    public void onSucceed(Bundle bundle) {
                         if (onSelectSceneListener != null) {
-                            String state = result.getString("state");
-                            int position = result.getInt("position", -1);
-                            onSelectSceneListener.onStateCall(state, position);
-                            org.qiyi.video.svg.log.Logger.d("state：" + state + " position: " + position);
+                            int speechCallBackState = bundle.getInt("speechCallBackState");
+                            String result = bundle.getString("result");
+                            String state = bundle.getString("state");
+                            int position = bundle.getInt("position", -1);
+                            onSelectSceneListener.onStateCall(speechCallBackState, result, state, position);
+                            org.qiyi.video.svg.log.Logger.d("speechCallBackState: " + speechCallBackState + " result: " + result + " state: " + state + " position: " + position);
                         }
                     }
 

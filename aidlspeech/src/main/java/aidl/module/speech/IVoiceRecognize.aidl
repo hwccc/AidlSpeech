@@ -12,6 +12,6 @@ interface IVoiceRecognize {
     boolean isStartVoiceSpeech();
     boolean isStartRecognition();
     int updateWordSlot(in WordSlotData wordSlotData);
-    int startSelectScene(in String result, IPCCallback callback);
+    int startSelectScene(in VoiceData result, IPCCallback callback);
     int stopScene();
 }

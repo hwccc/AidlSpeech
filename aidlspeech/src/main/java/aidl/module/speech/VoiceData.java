@@ -54,17 +54,32 @@ public class VoiceData implements Parcelable {
     /**
      * 前端点静音超时时间
      */
-    public String vadBos;
+    public long vadBos;
 
     /**
      * 后端点静音检测时间
      */
-    public String vadEos;
+    public long vadEos;
 
     /**
      * 语音场景（用于导航、电台、打电话、微信联系人搜索）
      */
     public int scene;
+
+    /**
+     * 启动语音是否显示界面
+     */
+    public boolean isShowView;
+
+    /**
+     * 语音选择场景超时时间（设置这个时间后，在这个时间内出现异常会自己重启）
+     */
+    public long selectOvertime = -1;
+
+    /**
+     * 启动语音说的提示语
+     */
+    public String hintText;
 
     public VoiceData() {
 
@@ -80,9 +95,12 @@ public class VoiceData implements Parcelable {
         isControlSound = in.readByte() != 0;
         isPlayHintSound = in.readByte() != 0;
         voiceFilePath = in.readString();
-        vadBos = in.readString();
-        vadEos = in.readString();
+        vadBos = in.readLong();
+        vadEos = in.readLong();
         scene = in.readInt();
+        isShowView = in.readByte() != 0;
+        selectOvertime = in.readLong();
+        hintText = in.readString();
     }
 
     public static final Creator<VoiceData> CREATOR = new Creator<VoiceData>() {
@@ -113,8 +131,11 @@ public class VoiceData implements Parcelable {
         parcel.writeByte((byte) (isControlSound ? 1 : 0));
         parcel.writeByte((byte) (isPlayHintSound ? 1 : 0));
         parcel.writeString(voiceFilePath);
-        parcel.writeString(vadBos);
-        parcel.writeString(vadEos);
+        parcel.writeLong(vadBos);
+        parcel.writeLong(vadEos);
         parcel.writeInt(scene);
+        parcel.writeByte((byte) (isShowView ? 1 : 0));
+        parcel.writeLong(selectOvertime);
+        parcel.writeString(hintText);
     }
 }
