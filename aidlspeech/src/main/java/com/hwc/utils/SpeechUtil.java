@@ -50,6 +50,7 @@ public class SpeechUtil extends BaseProcessUtil {
      * @return
      */
     public boolean start(VoiceData voiceData, final OnRecognitionListener onRecognitionListener) {
+        org.qiyi.video.svg.log.Logger.d("start");
         if (null == context) {
             Log.d(TAG, "SpeechUtil Not init Context Is Null");
             return false;
@@ -70,8 +71,8 @@ public class SpeechUtil extends BaseProcessUtil {
                         if (recognitionListener != null) {
                             int speechCallBackState = result.getInt("speechCallBackState");
                             VoiceExtraBean voiceExtraBean = (VoiceExtraBean) result.getSerializable("voiceExtraBean");
-                            recognitionListener.onRecognitionState(speechCallBackState, voiceExtraBean);
                             org.qiyi.video.svg.log.Logger.d("voiceExtraBean: " + voiceExtraBean.toString());
+                            recognitionListener.onRecognitionState(speechCallBackState, voiceExtraBean);
                         }
                     }
 
@@ -95,6 +96,7 @@ public class SpeechUtil extends BaseProcessUtil {
      * @return
      */
     public boolean stop() {
+        org.qiyi.video.svg.log.Logger.d("stop");
         releaseListener();
         if (null == context) {
             Log.d(TAG, "SpeechUtil Not init Context Is Null");
@@ -131,6 +133,7 @@ public class SpeechUtil extends BaseProcessUtil {
      * @param wordSlotData
      */
     public boolean updateWordSlot(WordSlotData wordSlotData) {
+        org.qiyi.video.svg.log.Logger.d("updateWordSlot");
         if (null == context) {
             Log.d(TAG, "SpeechUtil Not init Context Is Null");
             return false;
@@ -158,6 +161,7 @@ public class SpeechUtil extends BaseProcessUtil {
      * 是否在进行小喵识别
      */
     public boolean isStartVoiceSpeech() {
+        org.qiyi.video.svg.log.Logger.d("isStartVoiceSpeech");
         if (null == context) {
             Log.d(TAG, "SpeechUtil Not init Context Is Null");
             return false;
@@ -184,6 +188,7 @@ public class SpeechUtil extends BaseProcessUtil {
      * 是否在进行录音识别
      */
     public boolean isStartRecognition() {
+        org.qiyi.video.svg.log.Logger.d("isStartRecognition");
         if (null == context) {
             Log.d(TAG, "SpeechUtil Not init Context Is Null");
             return false;
@@ -214,6 +219,7 @@ public class SpeechUtil extends BaseProcessUtil {
      * @return
      */
     public boolean startSelectScene(VoiceData voiceData, final OnSelectSceneListener onSelectSceneListener) {
+        org.qiyi.video.svg.log.Logger.d("startSelectScene");
         if (null == context) {
             Log.d(TAG, "SpeechUtil Not init Context Is Null");
             return false;
@@ -260,6 +266,7 @@ public class SpeechUtil extends BaseProcessUtil {
      * @return
      */
     public boolean stopScene() {
+        Log.d(TAG, "stopScene");
         if (null == context) {
             Log.d(TAG, "SpeechUtil Not init Context Is Null");
             return false;
