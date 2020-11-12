@@ -7,4 +7,5 @@ interface IVoiceTts {
     int play(in TtsData result, IPCCallback callback);
     int stop(in int type);
     int isPlayTts(IPCCallback callback);
+    int setVolume(in int type, float volume);
 }

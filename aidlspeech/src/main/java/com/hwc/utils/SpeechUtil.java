@@ -51,14 +51,8 @@ public class SpeechUtil extends BaseProcessUtil {
      */
     public boolean start(VoiceData voiceData, final OnRecognitionListener onRecognitionListener) {
         org.qiyi.video.svg.log.Logger.d("start");
-        if (null == context) {
-            Log.d(TAG, "SpeechUtil Not init Context Is Null");
-            return false;
-        }
-        RemoteTransfer.getInstance().setCurrentAuthority(DispatcherConstants.AUTHORITY_VOICE);
-        IBinder iVoiceRecognize = Andromeda.with(context).getRemoteService(IVoiceRecognize.class);
-        if (null == iVoiceRecognize) {
-            Log.d(TAG, "iVoiceRecognize is Null");
+        IBinder iVoiceRecognize = checkIsConnect();
+        if (iVoiceRecognize == null) {
             return false;
         }
         IVoiceRecognize buyApple = IVoiceRecognize.Stub.asInterface(iVoiceRecognize);
@@ -98,14 +92,8 @@ public class SpeechUtil extends BaseProcessUtil {
     public boolean stop() {
         org.qiyi.video.svg.log.Logger.d("stop");
         releaseListener();
-        if (null == context) {
-            Log.d(TAG, "SpeechUtil Not init Context Is Null");
-            return false;
-        }
-        RemoteTransfer.getInstance().setCurrentAuthority(DispatcherConstants.AUTHORITY_VOICE);
-        IBinder iVoiceRecognize = Andromeda.with(context).getRemoteService(IVoiceRecognize.class);
-        if (null == iVoiceRecognize) {
-            Log.d(TAG, "iVoiceRecognize is Null");
+        IBinder iVoiceRecognize = checkIsConnect();
+        if (iVoiceRecognize == null) {
             return false;
         }
         IVoiceRecognize buyApple = IVoiceRecognize.Stub.asInterface(iVoiceRecognize);
@@ -134,14 +122,8 @@ public class SpeechUtil extends BaseProcessUtil {
      */
     public boolean updateWordSlot(WordSlotData wordSlotData) {
         org.qiyi.video.svg.log.Logger.d("updateWordSlot");
-        if (null == context) {
-            Log.d(TAG, "SpeechUtil Not init Context Is Null");
-            return false;
-        }
-        RemoteTransfer.getInstance().setCurrentAuthority(DispatcherConstants.AUTHORITY_VOICE);
-        IBinder iVoiceRecognize = Andromeda.with(context).getRemoteService(IVoiceRecognize.class);
-        if (null == iVoiceRecognize) {
-            Log.d(TAG, "iVoiceRecognize is Null");
+        IBinder iVoiceRecognize = checkIsConnect();
+        if (iVoiceRecognize == null) {
             return false;
         }
         IVoiceRecognize buyApple = IVoiceRecognize.Stub.asInterface(iVoiceRecognize);
@@ -162,14 +144,8 @@ public class SpeechUtil extends BaseProcessUtil {
      */
     public boolean isStartVoiceSpeech() {
         org.qiyi.video.svg.log.Logger.d("isStartVoiceSpeech");
-        if (null == context) {
-            Log.d(TAG, "SpeechUtil Not init Context Is Null");
-            return false;
-        }
-        RemoteTransfer.getInstance().setCurrentAuthority(DispatcherConstants.AUTHORITY_VOICE);
-        IBinder iVoiceRecognize = Andromeda.with(context).getRemoteService(IVoiceRecognize.class);
-        if (null == iVoiceRecognize) {
-            Log.d(TAG, "iVoiceRecognize is Null");
+        IBinder iVoiceRecognize = checkIsConnect();
+        if (iVoiceRecognize == null) {
             return false;
         }
         IVoiceRecognize buyApple = IVoiceRecognize.Stub.asInterface(iVoiceRecognize);
@@ -189,14 +165,8 @@ public class SpeechUtil extends BaseProcessUtil {
      */
     public boolean isStartRecognition() {
         org.qiyi.video.svg.log.Logger.d("isStartRecognition");
-        if (null == context) {
-            Log.d(TAG, "SpeechUtil Not init Context Is Null");
-            return false;
-        }
-        RemoteTransfer.getInstance().setCurrentAuthority(DispatcherConstants.AUTHORITY_VOICE);
-        IBinder iVoiceRecognize = Andromeda.with(context).getRemoteService(IVoiceRecognize.class);
-        if (null == iVoiceRecognize) {
-            Log.d(TAG, "iVoiceRecognize is Null");
+        IBinder iVoiceRecognize = checkIsConnect();
+        if (iVoiceRecognize == null) {
             return false;
         }
         IVoiceRecognize buyApple = IVoiceRecognize.Stub.asInterface(iVoiceRecognize);
@@ -220,14 +190,8 @@ public class SpeechUtil extends BaseProcessUtil {
      */
     public boolean startSelectScene(VoiceData voiceData, final OnSelectSceneListener onSelectSceneListener) {
         org.qiyi.video.svg.log.Logger.d("startSelectScene");
-        if (null == context) {
-            Log.d(TAG, "SpeechUtil Not init Context Is Null");
-            return false;
-        }
-        RemoteTransfer.getInstance().setCurrentAuthority(DispatcherConstants.AUTHORITY_VOICE);
-        IBinder iVoiceRecognize = Andromeda.with(context).getRemoteService(IVoiceRecognize.class);
-        if (null == iVoiceRecognize) {
-            Log.d(TAG, "iVoiceRecognize is Null");
+        IBinder iVoiceRecognize = checkIsConnect();
+        if (iVoiceRecognize == null) {
             return false;
         }
         IVoiceRecognize buyApple = IVoiceRecognize.Stub.asInterface(iVoiceRecognize);
@@ -267,14 +231,8 @@ public class SpeechUtil extends BaseProcessUtil {
      */
     public boolean stopScene() {
         Log.d(TAG, "stopScene");
-        if (null == context) {
-            Log.d(TAG, "SpeechUtil Not init Context Is Null");
-            return false;
-        }
-        RemoteTransfer.getInstance().setCurrentAuthority(DispatcherConstants.AUTHORITY_VOICE);
-        IBinder iVoiceRecognize = Andromeda.with(context).getRemoteService(IVoiceRecognize.class);
-        if (null == iVoiceRecognize) {
-            Log.d(TAG, "iVoiceRecognize is Null");
+        IBinder iVoiceRecognize = checkIsConnect();
+        if (iVoiceRecognize == null) {
             return false;
         }
         IVoiceRecognize buyApple = IVoiceRecognize.Stub.asInterface(iVoiceRecognize);
@@ -289,4 +247,18 @@ public class SpeechUtil extends BaseProcessUtil {
         return false;
     }
 
+
+    private IBinder checkIsConnect() {
+        if (null == context) {
+            Log.d(TAG, "SpeechUtil Not init Context Is Null");
+            return null;
+        }
+        RemoteTransfer.getInstance().setCurrentAuthority(DispatcherConstants.AUTHORITY_VOICE);
+        IBinder iVoiceRecognize = Andromeda.with(context).getRemoteService(IVoiceRecognize.class);
+        if (null == iVoiceRecognize) {
+            Log.d(TAG, "iVoiceTts is Null");
+            SpeechServiceUtil.getInstance().startService(context);
+        }
+        return iVoiceRecognize;
+    }
 }

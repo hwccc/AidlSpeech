@@ -1,6 +1,5 @@
 package com.hwc.utils;
 
-import android.content.Context;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -47,14 +46,8 @@ public class TtsPlayUtil extends BaseProcessUtil {
      * @return
      */
     public boolean play(TtsData ttsData, final OnVoiceTtsListener onVoiceTtsListener) {
-        if (null == context) {
-            Log.d(TAG, "TtsPlayUtil Not init Context Is Null");
-            return false;
-        }
-        RemoteTransfer.getInstance().setCurrentAuthority(DispatcherConstants.AUTHORITY_VOICE);
-        IBinder iVoiceTts = Andromeda.with(context).getRemoteService(IVoiceTts.class);
-        if (null == iVoiceTts) {
-            Log.d(TAG, "iVoiceTts is Null");
+        IBinder iVoiceTts = checkIsConnect();
+        if (iVoiceTts == null) {
             return false;
         }
         IVoiceTts buyApple = IVoiceTts.Stub.asInterface(iVoiceTts);
@@ -93,20 +86,37 @@ public class TtsPlayUtil extends BaseProcessUtil {
      */
     public boolean stop(int type) {
         releaseListener();
-        if (null == context) {
-            Log.d(TAG, "TtsPlayUtil Not init Context Is Null");
-            return false;
-        }
-        RemoteTransfer.getInstance().setCurrentAuthority(DispatcherConstants.AUTHORITY_VOICE);
-        IBinder iVoiceTts = Andromeda.with(context).getRemoteService(IVoiceTts.class);
-        if (null == iVoiceTts) {
-            Log.d(TAG, "iVoiceTts is Null");
+        IBinder iVoiceTts = checkIsConnect();
+        if (iVoiceTts == null) {
             return false;
         }
         IVoiceTts buyApple = IVoiceTts.Stub.asInterface(iVoiceTts);
         if (null != buyApple) {
             try {
                 buyApple.stop(type);
+                return true;
+            } catch (RemoteException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 设置声道音量
+     *
+     * @param type
+     * @return
+     */
+    public boolean setVolume(int type, float volume) {
+        IBinder iVoiceTts = checkIsConnect();
+        if (iVoiceTts == null) {
+            return false;
+        }
+        IVoiceTts buyApple = IVoiceTts.Stub.asInterface(iVoiceTts);
+        if (null != buyApple) {
+            try {
+                buyApple.setVolume(type, volume);
                 return true;
             } catch (RemoteException ex) {
                 ex.printStackTrace();
@@ -141,4 +151,18 @@ public class TtsPlayUtil extends BaseProcessUtil {
     }
 
 
+
+    private IBinder checkIsConnect() {
+        if (null == context) {
+            Log.d(TAG, "TtsPlayUtil Not init Context Is Null");
+            return null;
+        }
+        RemoteTransfer.getInstance().setCurrentAuthority(DispatcherConstants.AUTHORITY_VOICE);
+        IBinder iVoiceTts = Andromeda.with(context).getRemoteService(IVoiceTts.class);
+        if (null == iVoiceTts) {
+            Log.d(TAG, "iVoiceTts is Null");
+            SpeechServiceUtil.getInstance().startService(context);
+        }
+        return iVoiceTts;
+    }
 }
