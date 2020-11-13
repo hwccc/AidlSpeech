@@ -1,5 +1,7 @@
 package com.hwc.speech.listener;
 
+import com.didi365.speech.manager.bean.VoiceExtraBean;
+
 /**
  * 选择场景语音识别回调
  *
@@ -16,6 +18,6 @@ public interface OnSelectSceneListener {
      * @param state 识别结果状态（选项、翻页、取消）
      * @param position            选择的位置（从0开始）
      */
-    void onStateCall(int speechCallBackState, String result, String state, int position);
+    void onStateCall(int speechCallBackState, VoiceExtraBean voiceExtraBean, String state, int position);
 
 }

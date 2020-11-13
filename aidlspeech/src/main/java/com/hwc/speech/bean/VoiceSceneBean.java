@@ -94,4 +94,9 @@ public interface VoiceSceneBean {
      * 显示使用帮助弹窗
      */
     int VOICE_MODULE_XIAOMIAO_SHOW_HELP_DIALOG = 16;
+
+    /**
+     * DVR场景唤醒
+     */
+    int VOICE_MODULE_DVR = 17;
 }

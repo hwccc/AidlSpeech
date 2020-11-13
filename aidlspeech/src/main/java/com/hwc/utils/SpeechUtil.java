@@ -202,11 +202,12 @@ public class SpeechUtil extends BaseProcessUtil {
                     public void onSucceed(Bundle bundle) {
                         if (onSelectSceneListener != null) {
                             int speechCallBackState = bundle.getInt("speechCallBackState");
-                            String result = bundle.getString("result");
                             String state = bundle.getString("state");
                             int position = bundle.getInt("position", -1);
-                            onSelectSceneListener.onStateCall(speechCallBackState, result, state, position);
-                            org.qiyi.video.svg.log.Logger.d("speechCallBackState: " + speechCallBackState + " result: " + result + " state: " + state + " position: " + position);
+                            VoiceExtraBean voiceExtraBean = (VoiceExtraBean) bundle.getSerializable("voiceExtraBean");
+                            org.qiyi.video.svg.log.Logger.d("voiceExtraBean: " + voiceExtraBean.toString());
+                            onSelectSceneListener.onStateCall(speechCallBackState, voiceExtraBean, state, position);
+                            org.qiyi.video.svg.log.Logger.d("speechCallBackState: " + speechCallBackState + " state: " + state + " position: " + position);
                         }
                     }
 
