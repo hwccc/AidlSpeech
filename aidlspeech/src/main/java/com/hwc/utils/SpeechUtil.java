@@ -248,6 +248,52 @@ public class SpeechUtil extends BaseProcessUtil {
         return false;
     }
 
+    /**
+     * 启动唤醒
+     *
+     * @return
+     */
+    public boolean startWakeup() {
+        Log.d(TAG, "startWakeup");
+        IBinder iVoiceRecognize = checkIsConnect();
+        if (iVoiceRecognize == null) {
+            return false;
+        }
+        IVoiceRecognize buyApple = IVoiceRecognize.Stub.asInterface(iVoiceRecognize);
+        if (null != buyApple) {
+            try {
+                buyApple.startWakeup();
+                return true;
+            } catch (RemoteException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 停止唤醒
+     *
+     * @return
+     */
+    public boolean stopWakeup() {
+        Log.d(TAG, "stopWakeup");
+        IBinder iVoiceRecognize = checkIsConnect();
+        if (iVoiceRecognize == null) {
+            return false;
+        }
+        IVoiceRecognize buyApple = IVoiceRecognize.Stub.asInterface(iVoiceRecognize);
+        if (null != buyApple) {
+            try {
+                buyApple.stopWakeup();
+                return true;
+            } catch (RemoteException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return false;
+    }
+
 
     private IBinder checkIsConnect() {
         if (null == context) {
