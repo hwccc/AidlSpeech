@@ -60,6 +60,6 @@ dependencies {
     // 本地
 //    api 'com.github.hwccc:AndromedaApp:10.0.0'
     //  云端
-    api 'com.github.hwccc:AndromedaApp:0.0.3'
+    api 'com.github.hwccc:AndromedaApp:0.0.6'
 
 }
