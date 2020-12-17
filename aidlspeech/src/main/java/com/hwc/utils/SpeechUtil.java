@@ -299,6 +299,8 @@ public class SpeechUtil extends BaseProcessUtil {
         if (null == context) {
             Log.d(TAG, "SpeechUtil Not init Context Is Null");
             return null;
+        } else {
+            Log.d(TAG, "context: " + context.getPackageName());
         }
         RemoteTransfer.getInstance().setCurrentAuthority(DispatcherConstants.AUTHORITY_VOICE);
         IBinder iVoiceRecognize = Andromeda.with(context).getRemoteService(IVoiceRecognize.class);

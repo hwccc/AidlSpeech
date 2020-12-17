@@ -151,11 +151,12 @@ public class TtsPlayUtil extends BaseProcessUtil {
     }
 
 
-
     private IBinder checkIsConnect() {
         if (null == context) {
             Log.d(TAG, "TtsPlayUtil Not init Context Is Null");
             return null;
+        } else {
+            Log.d(TAG, "context: " + context.getPackageName());
         }
         RemoteTransfer.getInstance().setCurrentAuthority(DispatcherConstants.AUTHORITY_VOICE);
         IBinder iVoiceTts = Andromeda.with(context).getRemoteService(IVoiceTts.class);
