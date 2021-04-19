@@ -41,9 +41,14 @@ public class RecognitionCallBackState {
     public static final int SPEECH_ERROR = 7;
 
     /**
+     * 识别结束
+     */
+    public static final int SPEECH_EXIT = 8;
+
+    /**
      * 自定义一个注解SpeechState
      */
-    @IntDef({START, IDENTIFICATION, VOLUME, STOP, SEMANTICS, START_ERROR, SPEECH_ERROR})
+    @IntDef({START, IDENTIFICATION, VOLUME, STOP, SEMANTICS, START_ERROR, SPEECH_ERROR, SPEECH_EXIT})
     public @interface RecognitionState {
 
     }
