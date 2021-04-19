@@ -16,4 +16,5 @@ interface IVoiceRecognize {
     int stopScene();
     int startWakeup();
     int stopWakeup();
+    int setMonitorVoice(boolean isStartMonitorVoice, String packageName);
 }
