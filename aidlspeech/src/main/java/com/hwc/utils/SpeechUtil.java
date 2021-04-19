@@ -295,6 +295,29 @@ public class SpeechUtil extends BaseProcessUtil {
     }
 
 
+    /**
+     * 启动监听语音
+     *
+     * @return
+     */
+    public boolean setMonitorVoice(boolean isStartMonitorVoice, String packageName) {
+        Log.d(TAG, "setMonitorVoice isStartMonitorVoice： " + isStartMonitorVoice + "packageName： " + packageName);
+        IBinder iVoiceRecognize = checkIsConnect();
+        if (iVoiceRecognize == null) {
+            return false;
+        }
+        IVoiceRecognize buyApple = IVoiceRecognize.Stub.asInterface(iVoiceRecognize);
+        if (null != buyApple) {
+            try {
+                buyApple.setMonitorVoice(isStartMonitorVoice, packageName);
+                return true;
+            } catch (RemoteException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return false;
+    }
+
     private IBinder checkIsConnect() {
         if (null == context) {
             Log.d(TAG, "SpeechUtil Not init Context Is Null");
